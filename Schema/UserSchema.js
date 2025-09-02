@@ -20,20 +20,5 @@ UserRegisterSchema.pre("save", async function () {
   this.password = await bcrypt.hash(this.password, 12);
 });
 
-UserLogInSchema = new mongoose.Schema({
-    email : {
-        type:String,
-        required: [true , "Enter your name"]
-    },
-    password : {
-        type:String,
-        required: [true , "Enter your password"]
-    }
-})
-
-UserLogInSchema.pre("save", async function () {
-  this.password = await bcrypt.hash(this.password, 12);
-});
-
-module.exports = {UserLogInSchema : UserLogInSchema, UserRegisterSchema:UserRegisterSchema}
+module.exports = {UserRegisterSchema:UserRegisterSchema}
 
