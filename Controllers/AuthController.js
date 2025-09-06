@@ -13,7 +13,6 @@ module.exports.Signup = async (req, res, next) => {
     const user = await UserRegisterModel.create({Username, email, password, createdAt });
     const token = createSecretToken(user);
     res.cookie("token", token, {
-      withCredentials: true,
       httpOnly: true,
       secure:true,
       sameSite:"None"
@@ -44,8 +43,7 @@ module.exports.Login = async (req, res, next) => {
     }
      const token = createSecretToken(user);
       res.cookie("token", token, {
-       withCredentials: true,
-       httpOnly: false,
+       httpOnly: true,
        secure:true,
        sameSite:"None"
      })
