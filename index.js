@@ -17,16 +17,9 @@ const PORT = process.env.PORT;
 const url = process.env.MONGO_URL;
 
 app.use(cors({
-  origin: (origin, callback) => {
-    if ([!origin || "https://zerodha-frontend-ochre.vercel.app", "https://zerodha-dashboard-green.vercel.app"].includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
+  origin: ["https://zerodha-frontend-ochre.vercel.app", "https://zerodha-dashboard-green.vercel.app/"], 
+  credentials: true, 
 }));
-
 
 app.use(bodyParser.json());
 app.use(cookieParser());
