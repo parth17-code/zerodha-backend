@@ -16,10 +16,25 @@ const app = express();
 const PORT = process.env.PORT;
 const url = process.env.MONGO_URL;
 
+const allowedOrigins = [
+  "https://zerodha-frontend-ochre.vercel.app",
+  "https://zerodha-dashboard-green.vercel.app"
+];
+
 app.use(cors({
-  origin: ["https://zerodha-frontend-ochre.vercel.app", "https://zerodha-dashboard-green.vercel.app/"], 
-  credentials: true, 
+  origin: function(origin, callback){
+    // allow requests with no origin like Postman
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.includes(origin)){
+      callback(null, true);
+    } else {
+      console.log("Blocked by CORS:", origin);
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
 }));
+
 
 app.use(bodyParser.json());
 app.use(cookieParser());
